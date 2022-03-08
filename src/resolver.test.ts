@@ -4,19 +4,22 @@ import { Resolver } from './resolver';
 describe('resolve mayume puzzle', () => {
 
   // パズルのルール
-  // パズルは基本5*4
-  // 使えないマスがある
+  // パズルは基本4x5
   // 赤、青、緑のクリスタル
-  // 赤→青→緑の繰り返しで色が変わる
-  // 周りに派生
+  // クリックすると赤→青→緑の繰り返しで色が変わる
+  // 上下左右に派生
+  // 使えないマスあり、押せない
   // すべて赤にしたらクリア
 
 
   // 入力 tsc *gb** *grgb rgrr* **bb*
-  // 赤: r, 青: b, 緑: g, なにもない: * で表す
+  // 赤: r, 青: b, 緑: g, 無: * で表す
   // 出力 => ?
-  // 内部では、赤: 0, 青: 1, 緑: 2, なにもない: * で表す？
   // 最小組み合わせ回数？を入れたほうが良さそう
+
+  // 拡張メソッド
+  // 表示改善
+  // CLI化
 
   test('2x2で１回で解決する場合', () => {
     let puzzle: string[][] = [['r', 'g'],
@@ -41,7 +44,7 @@ describe('resolve mayume puzzle', () => {
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
-  xtest('２回以上押すことが必要な場合', () => {
+  test('２回以上押すことが必要な場合', () => {
     let puzzle: string[][] = [['r', 'r', 'r', 'r', 'r'],
                               ['r', 'r', 'r', 'r', 'r'],
                               ['r', 'r', 'b', 'r', 'r'],
@@ -50,6 +53,13 @@ describe('resolve mayume puzzle', () => {
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
-  // TODO: 押そうとしてるところが*だったらスキップする
+  test('実験', () => {
+    let puzzle: string[][] = [['*', 'b', 'r', '*', '*'],
+                              ['*', 'b', 'r', 'g', 'b'],
+                              ['r', 'g', 'r', 'r', '*'],
+                              ['*', '*', 'b', 'b', '*']];
+    let answer: number[][] = [[ 0, 1 ], [ 0, 2 ],[ 1, 2 ], [ 1, 4 ],[ 1, 4 ], [ 2, 2 ],[ 2, 3 ], [ 3, 3 ]];
+    expect(new Resolver(puzzle, 8, 8).solve()).toEqual(answer);
+  });
 });
 
