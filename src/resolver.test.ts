@@ -18,20 +18,21 @@ describe('resolve mayume puzzle', () => {
   // 最小組み合わせ回数？を入れたほうが良さそう
 
   // 拡張メソッド
-  // 表示改善
   // CLI化
 
   test('2x2で１回で解決する場合', () => {
     let puzzle: string[][] = [['r', 'g'],
                               ['g', 'g']];
-    let answer: number[][] = [[1, 1]];
+    let answer: number[][] = [[0, 0],
+                              [0, 1]];
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
   test('使えないマスがある場合', () => {
     let puzzle: string[][] = [['*', 'g'],
                               ['g', 'g']];
-    let answer: number[][] = [[1, 1]];
+    let answer: number[][] = [[0, 0],
+                              [0, 1]];
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
@@ -40,7 +41,10 @@ describe('resolve mayume puzzle', () => {
                               ['r', 'r', 'r', 'r', 'r'],
                               ['r', 'r', 'g', 'r', 'r'],
                               ['r', '*', 'g', 'g', 'r']];
-    let answer: number[][] = [[3, 2]];
+    let answer: number[][] = [[ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 1, 0, 0 ]];
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
@@ -49,16 +53,22 @@ describe('resolve mayume puzzle', () => {
                               ['r', 'r', 'r', 'r', 'r'],
                               ['r', 'r', 'b', 'r', 'r'],
                               ['r', '*', 'b', 'b', 'r']];
-    let answer: number[][] = [[3, 2], [3, 2]];
+    let answer: number[][] = [[ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 0, 0, 0 ],
+                              [ 0, 0, 2, 0, 0 ]];
     expect(new Resolver(puzzle).solve()).toEqual(answer);
   });
 
-  test('実験', () => {
-    let puzzle: string[][] = [['*', 'b', 'r', '*', '*'],
-                              ['*', 'b', 'r', 'g', 'b'],
-                              ['r', 'g', 'r', 'r', '*'],
-                              ['*', '*', 'b', 'b', '*']];
-    let answer: number[][] = [[ 0, 1 ], [ 0, 2 ],[ 1, 2 ], [ 1, 4 ],[ 1, 4 ], [ 2, 2 ],[ 2, 3 ], [ 3, 3 ]];
+  test('８回押す場合', () => {
+    let puzzle: string[][] = [['g', '*', 'b', '*', 'b'],
+                              ['r', 'g', 'g', 'r', 'r'],
+                              ['r', 'b', 'b', 'g', 'b'],
+                              ['r', '*', 'r', '*', 'g']];
+    let answer: number[][] = [[ 0, 0, 1, 0, 0 ],
+                              [ 0, 0, 1, 0, 1 ],
+                              [ 1, 0, 0, 1, 0 ],
+                              [ 0, 0, 1, 0, 0 ]];
     expect(new Resolver(puzzle, 8, 8).solve()).toEqual(answer);
   });
 });

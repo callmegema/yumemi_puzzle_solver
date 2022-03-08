@@ -12,10 +12,8 @@ export class Resolver {
         if (!this.checkResult(newPuzzle)) {
           continue
         }
-
-
-        console.log(pattern)
-        return pattern;
+        console.log(this.visualize(pattern));
+        return this.visualize(pattern);
       }
     }
   }
@@ -111,5 +109,16 @@ export class Resolver {
       }
     }
     return result;
+  }
+
+  protected visualize(pattern: number[][]): number[][] {
+    let generate2DArray2 = (m: number, n: number, val = 0): number[][] => {
+      return [...Array(m)].map(_ => Array(n).fill(val));
+    }
+    let arr = generate2DArray2(this.puzzle.length, this.puzzle[0].length);
+    for (let clickPosition of pattern) {
+      arr[clickPosition[0]][clickPosition[1]] += 1;
+    }
+    return arr;
   }
 }
