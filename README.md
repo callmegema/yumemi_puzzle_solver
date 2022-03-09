@@ -13,7 +13,7 @@ Mayume(魔法使いは流星雨の下でゆめをみる)ゲームのパズルを
 
 # how to use
 `npm install`
-`npm start 3 grrrr ggrr# grrrb rrrbb`
+`npm start 3 grrrr ggrr_ grrrb _rrbb`
 npm start {答えの組み合わせ数} {パズル１行目} {パズル２行目}...
-赤: r, 青: b, 緑: g, 無: # で表す
+赤: r, 青: b, 緑: g, 無: _ で表す
 `npm test`

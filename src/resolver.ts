@@ -3,7 +3,7 @@ export class Resolver {
   readonly redMark: string = 'r';
   readonly blueMark: string = 'b';
   readonly greenMark: string = 'g';
-  readonly blankMark: string = '#';
+  readonly blankMark: string = '_';
 
   constructor(private puzzle: string[][], private min: number = 1, private max: number = 10) {
     for (let i = 1; i < puzzle.length; i++) {
