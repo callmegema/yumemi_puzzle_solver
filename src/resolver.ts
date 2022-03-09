@@ -1,9 +1,11 @@
 export class Resolver {
+
+  protected blankMark: string = '#';
+
   constructor(private puzzle: string[][], private min: number = 1, private max: number = 10) {}
 
-  solve() {
+  solve(): number[][] {
     for (let i = this.min; i <= this.max; i++) {
-      console.log('click pattern:', i);
       let patterns = this.getPatterns(this.puzzle, i);
 
       for (let pattern of patterns){
@@ -12,18 +14,17 @@ export class Resolver {
         if (!this.checkResult(newPuzzle)) {
           continue
         }
-        console.log(this.visualize(pattern));
-        return this.visualize(pattern);
+        return pattern;
       }
     }
+    return [[]];
   }
 
   protected getPatterns(puzzle: string[][], n: number): number[][][] {
-    // return [[[2, 2], [1, 4], [0, 1], [3, 3], [2, 3], [1, 4], [1, 2], [0, 2]]];
     let arr = [...Array(this.puzzle[0].length).keys()];
     let clickPattern = this.repeatedPermutation(arr, 2)
                               .filter((p) => p[0] < this.puzzle.length && p[1] < this.puzzle[0].length)
-                              .filter((p) => this.puzzle[p[0]][p[1]] !== '*');
+                              .filter((p) => this.puzzle[p[0]][p[1]] !== this.blankMark);
     return this.repeatedCombination(clickPattern, n);;
   }
 
@@ -93,8 +94,8 @@ export class Resolver {
       case 'g': {
         return 'r'
       }
-      case '*': {
-        return '*'
+      case this.blankMark: {
+        return this.blankMark
       }
     }
   }
@@ -103,22 +104,11 @@ export class Resolver {
     let result = true;
     outer:
     for (let low of puzzle){
-      if (low.filter((v: string) => v !== 'r' && v !== '*').length > 0) {
+      if (low.filter((v: string) => v !== 'r' && v !== this.blankMark).length > 0) {
         result = false;
         break outer;
       }
     }
     return result;
-  }
-
-  protected visualize(pattern: number[][]): number[][] {
-    let generate2DArray2 = (m: number, n: number, val = 0): number[][] => {
-      return [...Array(m)].map(_ => Array(n).fill(val));
-    }
-    let arr = generate2DArray2(this.puzzle.length, this.puzzle[0].length);
-    for (let clickPosition of pattern) {
-      arr[clickPosition[0]][clickPosition[1]] += 1;
-    }
-    return arr;
   }
 }

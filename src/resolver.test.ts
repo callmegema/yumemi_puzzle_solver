@@ -2,23 +2,7 @@ import { Resolver } from './resolver';
 
 
 describe('resolve mayume puzzle', () => {
-
-  // パズルのルール
-  // パズルは基本4x5
-  // 赤、青、緑のクリスタル
-  // クリックすると赤→青→緑の繰り返しで色が変わる
-  // 上下左右に派生
-  // 使えないマスあり、押せない
-  // すべて赤にしたらクリア
-
-
-  // 入力 tsc *gb** *grgb rgrr* **bb*
-  // 赤: r, 青: b, 緑: g, 無: * で表す
-  // 出力 => ?
-  // 最小組み合わせ回数？を入れたほうが良さそう
-
   // 拡張メソッド
-  // CLI化
 
   test('2x2で１回で解決する場合', () => {
     let puzzle: string[][] = [['r', 'g'],
@@ -61,15 +45,15 @@ describe('resolve mayume puzzle', () => {
   });
 
   test('８回押す場合', () => {
-    let puzzle: string[][] = [['g', '*', 'b', '*', 'b'],
-                              ['r', 'g', 'g', 'r', 'r'],
-                              ['r', 'b', 'b', 'g', 'b'],
-                              ['r', '*', 'r', '*', 'g']];
+    let puzzle: string[][] = [['*', 'b', '*', '*', '*'],
+                              ['b', 'g', 'g', 'b', '*'],
+                              ['*', 'b', 'g', 'r', 'g'],
+                              ['*', '*', '*', 'g', '*']];
     let answer: number[][] = [[ 0, 0, 1, 0, 0 ],
                               [ 0, 0, 1, 0, 1 ],
                               [ 1, 0, 0, 1, 0 ],
                               [ 0, 0, 1, 0, 0 ]];
-    expect(new Resolver(puzzle, 8, 8).solve()).toEqual(answer);
+    expect(new Resolver(puzzle, 7, 8).solve()).toEqual(answer);
   });
 });
 
