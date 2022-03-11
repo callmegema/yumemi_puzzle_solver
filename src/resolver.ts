@@ -1,3 +1,5 @@
+import { NumberOfEvents } from './number_of_events';
+
 export class Resolver {
 
   readonly redMark: string = 'r';
@@ -34,32 +36,10 @@ export class Resolver {
 
   protected getPatterns(puzzle: string[][], n: number): number[][][] {
     let arr = [...Array(puzzle[0].length).keys()];
-    let clickPattern = this.repeatedPermutation(arr, 2)
+    let clickPattern = new NumberOfEvents().repeatedPermutation(arr, 2)
                               .filter((p) => p[0] < puzzle.length && p[1] < puzzle[0].length)
                               .filter((p) => puzzle[p[0]][p[1]] !== this.blankMark);
-    return this.repeatedCombination(clickPattern, n);;
-  }
-
-  protected repeatedCombination<T>(array: readonly T[], n: number): T[][] {
-    if (n < 0) return [];
-    if (n === 0) return [[]];
-
-    const result: T[][] = [];
-    for (let i = 0; i < array.length; i++) {
-      result.push(...this.repeatedCombination(array.slice(i), n - 1).map((sub) => [array[i], ...sub]));
-    }
-    return result;
-  }
-
-  protected repeatedPermutation<T>(array: readonly T[], n: number): T[][] {
-    if (n < 0) return [];
-    if (n === 0) return [[]];
-
-    const result: T[][] = [];
-    for (let i = 0; i < array.length; i++) {
-      result.push(...this.repeatedPermutation(array, n - 1).map((sub) => [array[i], ...sub]));
-    }
-    return result;
+    return new NumberOfEvents().repeatedCombination(clickPattern, n);
   }
 
   protected press(puzzle: string[][], pattern: number[][]): string[][] {
