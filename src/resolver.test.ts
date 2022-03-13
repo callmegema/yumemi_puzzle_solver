@@ -44,16 +44,18 @@ describe('resolve mayume puzzle', () => {
     expect(new Resolver(puzzle, 8, 8).solve()).toEqual(answer);
   });
 
-  test('パズルの行の長さが同じでない場合', () => {
-    let puzzle: string[][] = [['r', 'g', 'r'],
-                              ['g', 'g']];
-    expect(() => { new Resolver(puzzle).solve(); }).toThrow();
-  });
+  describe('エラーパターン', () => {
+    test('パズルの行の長さが同じでない場合', () => {
+      let puzzle: string[][] = [['r', 'g', 'r'],
+                                ['g', 'g']];
+      expect(() => { new Resolver(puzzle).solve(); }).toThrow();
+    });
 
-  test('異なる文字列が含まれる場合', () => {
-    let puzzle: string[][] = [['?', 'g'],
-                              ['g', 'g']];
-    expect(() => { new Resolver(puzzle).solve(); }).toThrow();
+    test('異なる文字列が含まれる場合', () => {
+      let puzzle: string[][] = [['?', 'g'],
+                                ['g', 'g']];
+      expect(() => { new Resolver(puzzle).solve(); }).toThrow();
+    });
   });
 });
 
